@@ -63,4 +63,50 @@ class User extends Authenticatable // implements MustVerifyEmail
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function questions() 
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
+    public function answeredQuestions()
+    {
+        return $this->hasMany(Question::class, 'answered_by');
+    }
+
+    public function reports()
+    {
+        # code...
+        return $this->hasMany(Report::class, 'reporter_id');
+    }
+
+    public function resolvedReports()
+    {
+        # code...
+        return $this->hasMany(Report::class, 'resolved_by');
+    }
+
+    //Helper
+    public function isExpert()
+    {
+        # code...
+        return $this->hasRole(['ustaz', 'ustazah']) && $this->is_verified;
+    }
+
+    public function isAdmin()
+    {
+        # code...
+        return $this->hasRole('admin');
+    }
+
+    public function canAnswerQuestions()
+    {
+        # code...
+        return $this->isExpert();
+    }
 }
