@@ -82,3 +82,7 @@ a[data-flux-navbar-items][data-current] {
 a[data-flux-navbar-items] [data-content] {
     color: #ffffff !important;
 }
+
+.data-flux-dropdown {
+    color: #ffffff !important
+}

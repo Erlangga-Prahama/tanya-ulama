@@ -11,7 +11,7 @@
             {{ $slot }}
         </main>
 
-        @include('partials.user-footer')
+        {{-- @include('partials.user-footer') --}}
     </div>
 
     @livewireScripts
