@@ -64,3 +64,21 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+
+a[data-flux-navbar-items] {
+    color: #ffffff !important;
+}
+
+a[data-flux-navbar-items]:hover {
+    color: #ffffff !important;
+}
+
+a[data-flux-navbar-items][data-current] {
+    color: #ffffff !important;
+    font-weight: bold !important;
+}
+
+a[data-flux-navbar-items] [data-content] {
+    color: #ffffff !important;
+}
