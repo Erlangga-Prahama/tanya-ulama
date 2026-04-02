@@ -11,7 +11,8 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
     
-Route::livewire('/post/index', 'pages::post.index')->name('post.index');
+Route::livewire('/posts/index', 'pages::post.index')->name('post.index');
+Route::livewire('/posts/create', 'pages::post.create')->name('post.create');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

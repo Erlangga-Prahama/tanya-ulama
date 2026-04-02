@@ -83,6 +83,15 @@ a[data-flux-navbar-items] [data-content] {
     color: #ffffff !important;
 }
 
+a[data-flux-sidebar-items] {
+    color: #ffffff !important
+}
+
+a[data-flux-sidebar-items][data-current] {
+    color: #ffffff !important;
+    font-weight: bold !important;
+}
+
 .data-flux-dropdown {
     color: #ffffff !important
 }
