@@ -9,6 +9,7 @@ new #[Layout('layouts::user')] class extends Component
 };
 ?>
 
-<div>
-    buat pertanyaan
+<div class="mt-4 mx-2">
+    <h1>Buat Pertanyaan</h1>
+   <livewire:rich-text-editor />
 </div>
