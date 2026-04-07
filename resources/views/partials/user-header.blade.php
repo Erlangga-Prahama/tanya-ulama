@@ -36,8 +36,8 @@
     </flux:sidebar.header>
     <flux:sidebar.nav>
         <flux:sidebar.group expandable icon="chat-bubble-bottom-center-text" heading="Pertanyaan" class="grid">
-            <flux:sidebar.item href="{{ route('post.index') }}">Daftar Pertanyaan</flux:sidebar.item>
-            <flux:sidebar.item href="{{ route('post.create') }}">Buat Pertayaan</flux:sidebar.item>
+            <flux:sidebar.item href="{{ route('posts.index') }}">Daftar Pertanyaan</flux:sidebar.item>
+            <flux:sidebar.item href="{{ route('posts.create') }}">Buat Pertayaan</flux:sidebar.item>
             <flux:sidebar.item href="#">Pertanyaan Anda</flux:sidebar.item>
         </flux:sidebar.group>
     </flux:sidebar.nav>

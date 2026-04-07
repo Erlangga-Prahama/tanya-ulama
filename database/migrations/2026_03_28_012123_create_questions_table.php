@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('content');
-            $table->string('category');
+            //$table->string('category');
             $table->boolean('is_answered')->default(false);
             $table->foreignId('answered_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamp('answered_at')->nullable();
