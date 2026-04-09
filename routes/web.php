@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/posts/index', 'pages::post.index')->name('posts.index');
     Route::livewire('/posts/create', 'pages::post.create')->name('posts.create');
     Route::livewire('/posts/{id}', 'pages::post.show')->name('post.show');
+    Route::livewire('/my-posts', 'pages::post.user-posts')->name('post.user-posts');
 });
 
 require __DIR__.'/auth.php';

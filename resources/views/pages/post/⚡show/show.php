@@ -18,6 +18,11 @@ new class extends Component
         $this->question = Question::findOrFail($id);
     }
 
+    public function answer()
+    {
+        
+    }
+
     public function render()
         {
             return $this->view()

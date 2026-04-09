@@ -1,7 +1,22 @@
+<?php
 
-<div class="mt-4 mx-2">
+use Livewire\Component;
+use Livewire\Attributes\Layout;
+
+new #[Layout('layouts::user')] class extends Component
+{
+    public $questions = '';
+
+    public function mount() 
+    {
+        $this->questions = Auth::user()->questions()->latest()->get();
+    }
+};
+?>
+
+<div class="my-3 mx-2">
     @if ($questions->count() > 0)
-    <flux:text variant="strong" class="font-bold mb-3">Pertanyaan yang sudah dijawab</flux:text>
+        <flux:text variant="strong" class="font-bold mb-3">Pertanyaan anda</flux:text>
         @foreach ($questions as $q)        
             <a href="{{ route('post.show', $q) }}" aria-label="Latest on our blog">
                 <flux:card size="sm" class="mb-2 hover:bg-zinc-50 dark:hover:bg-zinc-700">
