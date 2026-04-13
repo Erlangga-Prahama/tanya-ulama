@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Question extends Model
 {
@@ -21,7 +22,7 @@ class Question extends Model
 
     protected $casts = [
         'is_answered' => 'boolean',
-        'answered_at' => 'datetme',
+        'answered_at' => 'datetime',
     ];
 
     //relation
@@ -31,7 +32,7 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function answerd()
+    public function answered()
     {
         # code...
         return $this->hasOne(Answer::class);
@@ -64,5 +65,17 @@ class Question extends Model
     {
         # code...
         return !$this->is_answered;
+    }
+
+        // Accessor untuk 100 kata
+    public function getShortContentAttribute()
+    {
+        return Str::words($this->content, 26, '...');
+    }
+    
+    // Accessor dengan parameter dinamis
+    public function getExcerptAttribute($length = 100)
+    {
+        return Str::words($this->content, $length, '...');
     }
 }

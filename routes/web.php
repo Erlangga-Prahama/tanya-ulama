@@ -7,9 +7,13 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::livewire('/dashboard', 'dashboard')->name('admin.dashboard');
+});
     
 
 

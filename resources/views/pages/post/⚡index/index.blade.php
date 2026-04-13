@@ -5,7 +5,7 @@
         @foreach ($questions as $q)        
             <a href="{{ route('post.show', $q) }}" aria-label="Latest on our blog">
                 <flux:card size="sm" class="mb-2 hover:bg-zinc-50 dark:hover:bg-zinc-700">
-                    <flux:text class="text-slate-700">{!! $q->content !!}</flux:text>
+                    <flux:text class="text-slate-700">{!! $q->short_content !!}</flux:text>
                 </flux:card>
             </a>
         @endforeach

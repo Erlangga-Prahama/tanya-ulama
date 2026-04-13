@@ -37,13 +37,24 @@
     <flux:sidebar.nav>
         <flux:sidebar.group expandable icon="chat-bubble-bottom-center-text" heading="Pertanyaan" class="grid">
             <flux:sidebar.item href="{{ route('posts.index') }}">Daftar Pertanyaan</flux:sidebar.item>
-            <flux:sidebar.item href="{{ route('posts.create') }}">Buat Pertayaan</flux:sidebar.item>
-            <flux:sidebar.item href="#">Pertanyaan Anda</flux:sidebar.item>
+            @if (!auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
+                <flux:sidebar.item href="{{ route('posts.create') }}">Buat Pertayaan</flux:sidebar.item>
+                <flux:sidebar.item href="{{ route('post.user-posts') }}">Pertanyaan Anda</flux:sidebar.item>
+            @endif
+            {{-- @if (auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
+                <flux:sidebar.item href="#">Jawaban Anda</flux:sidebar.item>
+            @endif --}}
         </flux:sidebar.group>
     </flux:sidebar.nav>
     <flux:sidebar.spacer />
     <flux:sidebar.nav>
         <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
+        <form method="POST" action="{{ route('logout') }}" class="w-full">
+            @csrf
+            <flux:sidebar.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+                {{ __('Log Out') }}
+            </flux:sidebar.item>
+        </form>
         <flux:sidebar.item icon="information-circle" href="#">Help</flux:sidebar.item>
     </flux:sidebar.nav>
 </flux:sidebar>
