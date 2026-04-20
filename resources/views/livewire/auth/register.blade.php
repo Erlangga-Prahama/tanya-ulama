@@ -88,6 +88,11 @@ new #[Layout('components.layouts.auth')] class extends Component {
     </form>
 
     <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
+        Daftar sebagai ustaz / ustazah
+        <x-text-link href="{{ route('register.expert') }}">Klik disini</x-text-link>
+    </div>
+
+    <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
         Already have an account?
         <x-text-link href="{{ route('login') }}">Log in</x-text-link>
     </div>

@@ -64,7 +64,7 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
-
+/* 
 
 a[data-flux-navbar-items] {
     color: #ffffff !important;
@@ -94,4 +94,21 @@ a[data-flux-sidebar-items][data-current] {
 
 .data-flux-dropdown {
     color: #ffffff !important
+} */
+
+/* Navlist item aktif */
+[data-flux-navlist-item][aria-current="page"],
+[data-flux-navlist-item]:focus {
+    color: black !important;
+}
+
+/* Navlist item default */
+[data-flux-navlist-item] {
+    color: white !important;
+}
+
+/* Heading group */
+[data-flux-navlist-group] [data-flux-heading],
+[data-flux-sidebar-group] [data-flux-heading] {
+    color: white !important;
 }

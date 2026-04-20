@@ -50,7 +50,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         Auth::login($user);
 
         // Redirect ke halaman informasi bahwa akun perlu verifikasi
-        $this->redirect(route('verification.pending', absolute: false), navigate: true);
+        $this->redirect(route('posts.index', absolute: false), navigate: true);
     }
 }; ?>
 

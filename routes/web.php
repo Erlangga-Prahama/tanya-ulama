@@ -11,8 +11,10 @@ Route::get('/', function () {
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    Route::livewire('/dashboard', 'dashboard')->name('admin.dashboard');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::livewire('/verifikasi-ustaz', 'admin::ustaz.verification')->name('admin.ustaz-verification');
+    Route::livewire('/verifikasi-ustaz/{id}', 'admin::ustaz.verification-show')->name('admin.ustaz-verification-show');
 });
     
 

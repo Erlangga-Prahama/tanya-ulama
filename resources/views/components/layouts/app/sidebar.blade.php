@@ -12,15 +12,32 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group heading="Platform" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>Dashboard</flux:navlist.item>
+                <flux:navlist.group class="grid [&_.flux-navlist-group-heading]:text-white" heading="Platform">
+                    <flux:navlist.item 
+                        icon="home" 
+                        :href="route('dashboard')" 
+                        :current="request()->routeIs('dashboard')" 
+                        wire:navigate
+                        class="text-white! [&[aria-current]]:text-black! [&[data-current]]:text-black!"
+                    >Dashboard</flux:navlist.item>
                 </flux:navlist.group>
+                
+                <flux:sidebar.group 
+                    expandable 
+                    expanded="false" 
+                    class="grid [&_.flux-sidebar-group-heading]:text-white!"
+                    heading="Ustaz/Ustazah" 
+                >
+                    <flux:sidebar.item class="text-white! [&[aria-current]]:text-black! [&[data-current]]:text-black!" :href="route('admin.ustaz-verification')">Verifikasi</flux:sidebar.item>
+                    <flux:sidebar.item class="text-white!" href="#">Daftar Ustaz dan Ustazah</flux:sidebar.item>
+                    <flux:sidebar.item class="text-white!" href="#">Brand guidelines</flux:sidebar.item>
+                </flux:sidebar.group>
             </flux:navlist>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+            <flux:navlist variant="outline" class="text-white!">
+                <flux:navlist.item class="text-white!" icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                     Repository
                 </flux:navlist.item>
 
@@ -32,9 +49,9 @@
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">
                 <flux:profile
-                    :name="auth()->user()->name"
                     :initials="auth()->user()->initials()"
                     icon-trailing="chevrons-up-down"
+                    class="text-white!"
                 />
 
                 <flux:menu class="w-[220px]">
