@@ -13,7 +13,7 @@
 
         {{-- @include('partials.user-footer') --}}
     </div>
-
+    <flux:toast />
     @livewireScripts
     @fluxScripts
 </body>

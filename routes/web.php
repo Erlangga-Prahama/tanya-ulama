@@ -13,8 +13,12 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::livewire('/daftar-ustaz', 'admin::ustaz.index')->name('admin.ustaz-index');
     Route::livewire('/verifikasi-ustaz', 'admin::ustaz.verification')->name('admin.ustaz-verification');
     Route::livewire('/verifikasi-ustaz/{id}', 'admin::ustaz.verification-show')->name('admin.ustaz-verification-show');
+    Route::livewire('/laporan', 'admin::report.index')->name('admin.reports');
+    Route::livewire('/pelanggar', 'admin::report.offender')->name('admin.offender');
+    Route::livewire('/laporan/{id}', 'admin::report.show')->name('admin.reports.show');
 });
     
 

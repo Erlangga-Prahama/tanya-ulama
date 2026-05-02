@@ -28,10 +28,26 @@
                     class="grid [&_.flux-sidebar-group-heading]:text-white!"
                     heading="Ustaz/Ustazah" 
                 >
+                    <flux:sidebar.item class="text-white! [&[aria-current]]:text-black! [&[data-current]]:text-black!" :href="route('admin.ustaz-index')">Daftar Ustaz dan Ustazah</flux:sidebar.item>
                     <flux:sidebar.item class="text-white! [&[aria-current]]:text-black! [&[data-current]]:text-black!" :href="route('admin.ustaz-verification')">Verifikasi</flux:sidebar.item>
-                    <flux:sidebar.item class="text-white!" href="#">Daftar Ustaz dan Ustazah</flux:sidebar.item>
                     <flux:sidebar.item class="text-white!" href="#">Brand guidelines</flux:sidebar.item>
                 </flux:sidebar.group>
+
+                <flux:navlist.item 
+                    icon="flag" 
+                    :href="route('admin.reports')" 
+                    :current="request()->routeIs('admin.reports')" 
+                    wire:navigate
+                    class="text-white! [&[aria-current]]:text-black! [&[data-current]]:text-black!"
+                >Laporan</flux:navlist.item>
+
+                <flux:navlist.item 
+                    icon="exclamation-triangle" 
+                    :href="route('admin.offender')" 
+                    :current="request()->routeIs('admin.offender')" 
+                    wire:navigate
+                    class="text-white! [&[aria-current]]:text-black! [&[data-current]]:text-black!"
+                >Pelanggar</flux:navlist.item>
             </flux:navlist>
 
             <flux:spacer />
@@ -82,12 +98,18 @@
 
                     <flux:menu.separator />
 
-                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    <flux:modal.trigger name="logout-modal">
+                        <flux:menu.item as="button" icon="arrow-right-start-on-rectangle" class="w-full">
+                            {{ __('Keluar') }}
+                        </flux:menu.item>
+                    </flux:modal.trigger>
+                    {{-- <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
                             {{ __('Log Out') }}
                         </flux:menu.item>
-                    </form>
+                    </form> --}}
+                    
                 </flux:menu>
             </flux:dropdown>
         </flux:sidebar>
@@ -135,15 +157,37 @@
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                            {{ __('Log Out') }}
+                            {{ __('Keluar') }}
                         </flux:menu.item>
                     </form>
                 </flux:menu>
             </flux:dropdown>
         </flux:header>
 
+        <flux:modal name="logout-modal" class="min-w-[22rem]">
+            <div class="space-y-6">
+                <div>
+                    <flux:heading size="lg">Keluar?</flux:heading>
+                    <flux:text class="mt-2">
+                        Anda yakin?<br>
+                    </flux:text>
+                </div>
+                <div class="flex gap-2">
+                    <flux:spacer />
+                    <flux:modal.close>
+                        <flux:button variant="ghost">Batal</flux:button>
+                    </flux:modal.close>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <flux:button type="submit" variant="danger">Keluar</flux:button>
+                    </form>
+                </div>
+            </div>
+        </flux:modal>
+
         {{ $slot }}
 
         @fluxScripts
+        <flux:toast />
     </body>
 </html>

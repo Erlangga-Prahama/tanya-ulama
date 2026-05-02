@@ -2,20 +2,17 @@
 
 use Livewire\Component;
 use App\Models\Question;
+use Livewire\WithPagination;
 
 new class extends Component
 {
-    public function mount()
-    {
-        // Tandai notif sudah ditampilkan setelah pertama kali muncul
-        if (auth()->user()->is_verified && !session()->has('verified_notif_shown')) {
-            session(['show_verified_notif' => true]);
-        }
-    }
+    use WithPagination;
 
     public function render()
     {
-        return $this->view(['questions' => Question::latest()->get()])
-            ->layout('layouts::user'); 
+        return $this->view([
+            'questions' => Question::where('is_answered', true)->latest()->paginate(10, ['*'], 'answered_page'),
+            'questionsCanBeAnswered' => Question::where('is_answered', false)->latest()->paginate(10, ['*'], 'unanswered_page'),
+        ])->layout('layouts::user'); 
     }
-};
+}

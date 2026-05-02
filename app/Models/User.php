@@ -40,6 +40,18 @@ class User extends Authenticatable // implements MustVerifyEmail
         'remember_token',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleting(function (User $user) {
+            // Reset semua pertanyaan yang dijawab oleh ustaz ini
+            Question::where('answered_by', $user->id)->update([
+                'is_answered' => false,
+                'answered_by' => null,
+                'answered_at' => null,
+            ]);
+        });
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -50,6 +62,7 @@ class User extends Authenticatable // implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'verified_at' => 'datetime',
         ];
     }
 
@@ -103,10 +116,5 @@ class User extends Authenticatable // implements MustVerifyEmail
         # code...
         return $this->hasRole('admin');
     }
-
-    public function canAnswerQuestions()
-    {
-        # code...
-        return $this->isExpert();
-    }
+    
 }

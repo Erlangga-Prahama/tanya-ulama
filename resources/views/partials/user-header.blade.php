@@ -1,4 +1,4 @@
-<flux:header container class="bg-green-600 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+<flux:header sticky container class="bg-green-600 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
     <flux:sidebar.toggle class="lg:hidden text-white!" icon="bars-2" inset="left" />
     <flux:brand href="#" name="Tanya Ulama." color="white" class="max-lg:hidden dark:hidden font-bold" />
     <flux:brand href="#" name="Tanya Ulama." color="white" class="max-lg:hidden !hidden dark:flex font-bold" />
@@ -6,8 +6,8 @@
         <flux:navbar.item icon="chat-bubble-bottom-center-text" variant="solid" href="#" current class="text-white!">Pertanyaan</flux:navbar.item>
     </flux:navbar>
     <flux:spacer />
-    <flux:navbar class="me-4">
-        <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />
+    <flux:navbar class="me-1">
+        <livewire:search-bar />
         <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
         <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
     </flux:navbar>
@@ -49,12 +49,32 @@
     <flux:sidebar.spacer />
     <flux:sidebar.nav>
         <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
-        <form method="POST" action="{{ route('logout') }}" class="w-full">
-            @csrf
-            <flux:sidebar.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                {{ __('Log Out') }}
+        <flux:modal.trigger name="logout-modal">
+            <flux:sidebar.item as="button" icon="arrow-right-start-on-rectangle" class="w-full">
+                {{ __('Keluar') }}
             </flux:sidebar.item>
-        </form>
+        </flux:modal.trigger>
         <flux:sidebar.item icon="information-circle" href="#">Help</flux:sidebar.item>
     </flux:sidebar.nav>
 </flux:sidebar>
+
+<flux:modal name="logout-modal" class="min-w-[18rem]">
+    <div class="space-y-6">
+        <div>
+            <flux:heading size="lg">Keluar?</flux:heading>
+            <flux:text class="mt-2">
+                Anda yakin?<br>
+            </flux:text>
+        </div>
+        <div class="flex gap-2">
+            <flux:spacer />
+            <flux:modal.close>
+                <flux:button variant="ghost">Batal</flux:button>
+            </flux:modal.close>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <flux:button type="submit" variant="danger">Keluar</flux:button>
+            </form>
+        </div>
+    </div>
+</flux:modal>

@@ -13,6 +13,7 @@ class Report extends Model
         'reportable_type',
         'reportable_id',
         'reporter_id',
+        'reported_user_id',
         'reason',
         'description',
         'status',
@@ -36,6 +37,11 @@ class Report extends Model
     {
         # code...
         return $this->belongsTo(User::class, 'reporter_id');
+    }
+
+    public function reportedUser()
+    {
+        return $this->belongsTo(User::class, 'reported_user_id');
     }
 
     public function resolver()
