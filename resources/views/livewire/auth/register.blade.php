@@ -29,6 +29,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         event(new Registered(($user = User::create($validated))));
 
+        $user->assignRole('user');
+
         Auth::login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
@@ -36,7 +38,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header title="Create an account" description="Enter your details below to create your account" />
+    <x-auth-header title="Buat akun" description="Masukan detail anda untuk membuat akun" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -44,12 +46,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <form wire:submit="register" class="flex flex-col gap-6">
         <!-- Name -->
         <div class="grid gap-2">
-            <flux:input wire:model="name" id="name" label="{{ __('Name') }}" type="text" name="name" required autofocus autocomplete="name" placeholder="Full name" />
+            <flux:input wire:model="name" id="name" label="{{ __('Nama') }}" type="text" name="name" required autofocus autocomplete="name" placeholder="Nama" />
         </div>
 
         <!-- Email Address -->
         <div class="grid gap-2">
-            <flux:input wire:model="email" id="email" label="{{ __('Email address') }}" type="email" name="email" required autocomplete="email" placeholder="email@example.com" />
+            <flux:input wire:model="email" id="email" label="{{ __('Email') }}" type="email" name="email" required autocomplete="email" placeholder="email@contoh.com" />
         </div>
 
         <!-- Password -->
@@ -57,12 +59,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
             <flux:input
                 wire:model="password"
                 id="password"
-                label="{{ __('Password') }}"
+                label="{{ __('Kata sandi') }}"
                 type="password"
                 name="password"
                 required
                 autocomplete="new-password"
-                placeholder="Password"
+                placeholder="Kata sandi"
             />
         </div>
 
@@ -71,18 +73,18 @@ new #[Layout('components.layouts.auth')] class extends Component {
             <flux:input
                 wire:model="password_confirmation"
                 id="password_confirmation"
-                label="{{ __('Confirm password') }}"
+                label="{{ __('Konfimasi kata sandi') }}"
                 type="password"
                 name="password_confirmation"
                 required
                 autocomplete="new-password"
-                placeholder="Confirm password"
+                placeholder="Konfirmasi kata sandi"
             />
         </div>
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Create account') }}
+                {{ __('Buat akun') }}
             </flux:button>
         </div>
     </form>
@@ -93,7 +95,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     </div>
 
     <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        Already have an account?
-        <x-text-link href="{{ route('login') }}">Log in</x-text-link>
+        Sudah punya akun?
+        <x-text-link href="{{ route('login') }}">Masuk</x-text-link>
     </div>
 </div>

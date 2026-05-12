@@ -14,6 +14,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::livewire('/daftar-ustaz', 'admin::ustaz.index')->name('admin.ustaz-index');
+    Route::livewire('/pengguna', 'admin::user.index')->name('admin.user-index');
     Route::livewire('/verifikasi-ustaz', 'admin::ustaz.verification')->name('admin.ustaz-verification');
     Route::livewire('/verifikasi-ustaz/{id}', 'admin::ustaz.verification-show')->name('admin.ustaz-verification-show');
     Route::livewire('/laporan', 'admin::report.index')->name('admin.reports');
@@ -29,9 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-    Route::livewire('/posts/index', 'pages::post.index')->name('posts.index');
-    Route::livewire('/posts/create', 'pages::post.create')->name('posts.create');
-    Route::livewire('/posts/{id}', 'pages::post.show')->name('post.show');
+    Route::livewire('/pertanyaan', 'pages::post.index')->name('posts.index');
+    Route::livewire('/pertanyaan/buat', 'pages::post.create')->name('posts.create');
+    Route::livewire('/pertanyaan/{id}', 'pages::post.show')->name('post.show');
     Route::livewire('/my-posts', 'pages::post.user-posts')->name('post.user-posts');
 });
 

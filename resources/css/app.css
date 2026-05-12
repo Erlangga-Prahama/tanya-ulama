@@ -112,3 +112,22 @@ a[data-flux-sidebar-items][data-current] {
 [data-flux-sidebar-group] [data-flux-heading] {
     color: white !important;
 }
+
+@font-face {
+    font-family: 'Rubaith';
+    src: url('/fonts/Rubaith.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Alhambra';
+    src: url('/fonts/Alhambra.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@theme {
+    --font-rubaith: 'Rubaith', sans-serif;
+    --font-alhambra: 'Alhambra', sans-serif;
+}

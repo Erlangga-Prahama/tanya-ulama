@@ -63,17 +63,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <x-auth-session-status class="text-center" :status="session('status')" />
 
     <form wire:submit="register" class="flex flex-col gap-6" enctype="multipart/form-data">
-        <!-- Name -->
         <div class="grid gap-2">
             <flux:input wire:model="name" id="name" label="{{ __('Nama Lengkap') }}" type="text" required autofocus placeholder="Nama lengkap sesuai ijazah" />
         </div>
 
-        <!-- Email Address -->
         <div class="grid gap-2">
-            <flux:input wire:model="email" id="email" label="{{ __('Email') }}" type="email" required placeholder="email@example.com" />
+            <flux:input wire:model="email" id="email" label="{{ __('Email') }}" type="email" required placeholder="email@contoh.com" />
         </div>
 
-        <!-- Gender Selection -->
         <div class="grid gap-2">
             <flux:label>{{ __('Jenis Kelamin') }}</flux:label>
             <div class="flex gap-4">
@@ -91,7 +88,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
             @enderror
         </div>
 
-        <!-- Verification Document Upload -->
         <div class="grid gap-2">
             <flux:label>{{ __('Dokumen Verifikasi (Ijazah/Sertifikat)') }}</flux:label>
             <input 
@@ -108,14 +104,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </p>
         </div>
 
-        <!-- Password -->
         <div class="grid gap-2">
-            <flux:input wire:model="password" id="password" label="{{ __('Password') }}" type="password" required placeholder="Password" />
+            <flux:input wire:model="password" id="password" label="{{ __('Kata sandi') }}" type="password" required placeholder="Kata sandi" />
         </div>
 
-        <!-- Confirm Password -->
         <div class="grid gap-2">
-            <flux:input wire:model="password_confirmation" id="password_confirmation" label="{{ __('Konfirmasi Password') }}" type="password" required placeholder="Konfirmasi password" />
+            <flux:input wire:model="password_confirmation" id="password_confirmation" label="{{ __('Konfirmasi kata sandi') }}" type="password" required placeholder="Konfirmasi kata sandi" />
         </div>
 
         <div class="flex items-center justify-end">

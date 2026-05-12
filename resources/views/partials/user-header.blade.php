@@ -1,27 +1,23 @@
-<flux:header sticky container class="bg-green-600 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+<flux:header sticky container class="bg-green-800 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700 z-50">
     <flux:sidebar.toggle class="lg:hidden text-white!" icon="bars-2" inset="left" />
     <flux:brand href="#" name="Tanya Ulama." color="white" class="max-lg:hidden dark:hidden font-bold" />
     <flux:brand href="#" name="Tanya Ulama." color="white" class="max-lg:hidden !hidden dark:flex font-bold" />
-    <flux:navbar class="-mb-px max-lg:hidden text-white!">
-        <flux:navbar.item icon="chat-bubble-bottom-center-text" variant="solid" href="#" current class="text-white!">Pertanyaan</flux:navbar.item>
+    <flux:navbar class="-mb-px max-lg:hidden text-white!">    
+        <flux:dropdown>
+            <flux:navbar.item icon:trailing="chat-bubble-bottom-center-text" class="text-white!">Pertanyaan</flux:navbar.item>
+            <flux:navmenu>
+                <flux:navmenu.item href="{{ route('posts.index') }}">Daftar pertanyaan</flux:navmenu.item>
+                @if (!auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
+                    <flux:navmenu.item href="{{ route('posts.create') }}">Buat pertanyaan</flux:navmenu.item>
+                    <flux:navmenu.item href="{{ route('post.user-posts') }}">Pertanyaan anda</flux:navmenu.item>
+                @endif
+            </flux:navmenu>
+        </flux:dropdown>
     </flux:navbar>
     <flux:spacer />
-    <flux:navbar class="me-1">
-        <livewire:search-bar />
-        <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
-        <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
+    <flux:navbar class="flex justify-center lg:hidden">
+            <flux:navbar.item href="#" class="text-green-800!">Tanya Ulama.</flux:navbar.item>
     </flux:navbar>
-    {{-- <flux:dropdown position="top" align="start" class="text-white!">
-        <flux:profile avatar="https://fluxui.dev/img/demo/user.png" class="text-white! dark:text-white!"  />
-        <flux:menu>
-            <flux:menu.radio.group class="text-white!">
-                <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
-                <flux:menu.radio>Truly Delta</flux:menu.radio>
-            </flux:menu.radio.group>
-            <flux:menu.separator />
-            <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
-        </flux:menu>
-    </flux:dropdown> --}}
 </flux:header>
 
 <flux:sidebar sticky collapsible="mobile" class="lg:hidden bg-slate-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
@@ -31,15 +27,16 @@
             logo=""
             logo:dark=""
             name="Tanya Ulama."
+            class="font-alhambra"
         />
         <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
     </flux:sidebar.header>
     <flux:sidebar.nav>
         <flux:sidebar.group expandable icon="chat-bubble-bottom-center-text" heading="Pertanyaan" class="grid">
-            <flux:sidebar.item href="{{ route('posts.index') }}">Daftar Pertanyaan</flux:sidebar.item>
+            <flux:sidebar.item href="{{ route('posts.index') }}">Daftar pertanyaan</flux:sidebar.item>
             @if (!auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
-                <flux:sidebar.item href="{{ route('posts.create') }}">Buat Pertayaan</flux:sidebar.item>
-                <flux:sidebar.item href="{{ route('post.user-posts') }}">Pertanyaan Anda</flux:sidebar.item>
+                <flux:sidebar.item href="{{ route('posts.create') }}">Buat pertayaan</flux:sidebar.item>
+                <flux:sidebar.item href="{{ route('post.user-posts') }}">Pertanyaan anda</flux:sidebar.item>
             @endif
             {{-- @if (auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
                 <flux:sidebar.item href="#">Jawaban Anda</flux:sidebar.item>
@@ -48,13 +45,12 @@
     </flux:sidebar.nav>
     <flux:sidebar.spacer />
     <flux:sidebar.nav>
-        <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
         <flux:modal.trigger name="logout-modal">
             <flux:sidebar.item as="button" icon="arrow-right-start-on-rectangle" class="w-full">
                 {{ __('Keluar') }}
             </flux:sidebar.item>
         </flux:modal.trigger>
-        <flux:sidebar.item icon="information-circle" href="#">Help</flux:sidebar.item>
+        <flux:sidebar.item icon="information-circle" href="#">Bantuan</flux:sidebar.item>
     </flux:sidebar.nav>
 </flux:sidebar>
 

@@ -19,9 +19,11 @@
 
         @if (!$question->canBeAnswered())            
             <div class="rounded border bg-white pt-6 pb-3 px-5 mb-2 shadow relative">
-                <flux:modal.trigger name="report-answer">
-                    <flux:button icon="exclamation-triangle" :disabled="$alreadyReportedAnswer" tooltip="Laporkan jawaban" variant='ghost' icon:variant="outline" size="sm" square='true' class="absolute! right-0 top-0"></flux:button>
-                </flux:modal.trigger>
+                @if(auth()->user()->isExpert())
+                    <flux:modal.trigger name="report-answer">
+                        <flux:button icon="exclamation-triangle" :disabled="$alreadyReportedAnswer" tooltip="Laporkan jawaban" variant='ghost' icon:variant="outline" size="sm" square='true' class="absolute! right-0 top-0"></flux:button>
+                    </flux:modal.trigger>
+                @endif
                 <strong class="text-sm text-slate-800 font-semibold mb-1">Oleh {{$question->answered->user->roles->first()->name}} {{ $question->answered->user->name }}</strong>
                 <div class="text-slate-700! text-sm">{!! $question->answered->content !!}</div> 
                 <p class="mt-2 text-xs text-slate-600">{{ $question->answered_at->diffForHumans() }}</p>

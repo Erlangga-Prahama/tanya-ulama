@@ -71,7 +71,6 @@ new class extends Component
     </div>
 
     @if (!$ustaz->is_verified)        
-        {{-- Popover pojok kanan bawah --}}
         <div class="fixed bottom-3 right-3 z-50" x-data="{ open: false }">
 
             {{-- Tombol toggle --}}

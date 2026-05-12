@@ -70,10 +70,12 @@ new class extends Component
 ?>
 
 <div class="relative min-h-screen mx-3 mt-2">
-
-    {{-- Konten yang dilaporkan --}}
     <flux:text class="text-xs text-slate-400 mb-1">
-        {{ class_basename(urldecode($reportable_type)) }}
+        @if (class_basename($reportable_type) == 'Question')
+            Pertanyaan
+        @else
+            Jawaban
+        @endif
     </flux:text>
 
     <div class="rounded border bg-white pt-4 pb-3 px-4 mb-4 shadow">
@@ -83,7 +85,6 @@ new class extends Component
         </div>
     </div>
 
-    {{-- Daftar laporan --}}
     <flux:text variant="strong" class="font-bold mb-2 block">
         {{ $reports->count() }} Laporan
     </flux:text>
@@ -110,7 +111,6 @@ new class extends Component
         </div>
     @endforeach
 
-    {{-- Popover pojok kanan bawah --}}
     <div class="fixed bottom-3 right-3 z-50" x-data="{ open: false }">
         <button
             @click="open = !open"

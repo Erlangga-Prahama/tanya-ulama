@@ -1,6 +1,24 @@
 <div class="mt-4 mx-3 pb-6">
 
-    {{-- Notif akun sedang diproses --}}
+    <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-2 shadow-sm mb-4">
+        <svg class="w-4 h-4 text-slate-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+        </svg>
+        <input
+            type="text"
+            wire:model.live.debounce.300ms="search"
+            placeholder="Cari pertanyaan..."
+            class="text-sm text-slate-700 placeholder-slate-400 outline-none bg-transparent flex-1"
+        />
+        @if($search)
+            <button wire:click="$set('search', '')" class="text-slate-300 hover:text-slate-500 transition">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        @endif
+    </div>
+
     @if(auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && !auth()->user()->is_verified)
         <div class="mb-4 flex gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
             <div class="flex-shrink-0 mt-0.5">
@@ -17,7 +35,6 @@
         </div>
     @endif
 
-    {{-- Notif akun berhasil diverifikasi --}}
     @if(auth()->user()->is_verified && auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && auth()->user()->verified_at?->gt(now()->subHours(20)))
         <div
             x-data="{ show: true }"
@@ -46,11 +63,36 @@
         </div>
     @endif
 
-    {{-- Pertanyaan belum dijawab (hanya untuk expert) --}}
+<div class="relative w-full rounded-2xl overflow-hidden mb-6" style="min-height: 180px;">
+    <img src="{{ asset('img/home.png') }}" alt="banner" class="absolute inset-0 w-full h-full object-cover">
+    
+    <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 rounded-2xl"></div>
+
+    <div class="relative z-10 flex flex-col justify-center h-full px-5 py-8 md:px-10 md:py-12">
+        <p class="text-xs font-medium text-green-300 uppercase tracking-widest mb-1">Tanya Ulama</p>
+        <h2 class="text-lg md:text-2xl font-bold text-white leading-snug mb-1">
+            Dapatkan Jawaban dari<br>Ustaz Terpercaya
+        </h2>
+        <p class="text-xs md:text-sm text-white/70 mb-4">Tanyakan apa saja, kami siap membantu.</p>
+
+        @if(!auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
+            
+            <a href="{{ route('posts.create') }}"
+                class="self-start flex items-center gap-2 px-4 py-2 border border-white/50 hover:border-white text-white text-xs md:text-sm font-medium rounded-xl backdrop-blur-sm hover:bg-white/10 transition"
+            >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Ajukan Pertanyaan
+            </a>
+        @endif
+    </div>
+</div>
+
     @if(auth()->user()->isExpert())
         <div class="mb-6">
             <div class="flex items-center gap-2 mb-3">
-                <div class="w-1 h-4 bg-green-500 rounded-full"></div>
+                <div class="w-1 h-4 bg-slate-300 rounded-full"></div>
                 <p class="text-sm font-semibold text-slate-700">Menunggu Jawaban</p>
                 @if($questionsCanBeAnswered->total() > 0)
                     <span class="ml-auto text-xs font-medium text-green-600 bg-green-50 border border-green-100 px-2 py-0.5 rounded-full">
@@ -80,11 +122,10 @@
         </div>
     @endif
 
-    {{-- Pertanyaan sudah dijawab --}}
     <div>
         <div class="flex items-center gap-2 mb-3">
-            <div class="w-1 h-4 bg-slate-300 rounded-full"></div>
-            <p class="text-sm font-semibold text-slate-700">Sudah Dijawab</p>
+            <div class="w-1 h-4 bg-green-800 rounded-full"></div>
+            <p class="text-sm font-semibold text-slate-700">Pertanyaan Terbaru</p>
             @if($questions->total() > 0)
                 <span class="ml-auto text-xs font-medium text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full">
                     {{ $questions->total() }}
@@ -99,7 +140,7 @@
                         <div class="bg-white border border-slate-100 rounded-xl px-4 py-3 shadow-sm group-hover:border-slate-200 group-hover:shadow-md transition-all duration-200">
                             <p class="text-sm text-slate-700 line-clamp-2 leading-relaxed">{!! $q->short_content !!}</p>
                             <div class="flex items-center gap-1.5 mt-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-green-400"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-green-800"></div>
                                 <p class="text-xs text-slate-400">{{ $q->created_at->diffForHumans() }}</p>
                             </div>
                         </div>
