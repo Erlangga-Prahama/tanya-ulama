@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-echo "Caching config & routes..."
+echo "Caching config..."
 php artisan config:cache
-php artisan route:cache
 
 echo "Linking storage..."
 php artisan storage:link
