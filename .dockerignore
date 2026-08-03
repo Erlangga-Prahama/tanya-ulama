@@ -1,0 +1,8 @@
+/node_modules
+/vendor
+.env
+/storage/*.key
+/public/hot
+Homestead.json
+Homestead.yaml
+npm-debug.log
