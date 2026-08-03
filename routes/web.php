@@ -3,13 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-// Route::view('dashboard', 'dashboard')
-//     ->middleware(['auth', 'verified'])
-//     ->name('dashboard');
+Route::livewire('/', 'pages::post.index')->name('posts.index');
+Route::livewire('/pertanyaan/{id}', 'pages::post.show')->name('post.show');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
@@ -21,8 +16,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::livewire('/pelanggar', 'admin::report.offender')->name('admin.offender');
     Route::livewire('/laporan/{id}', 'admin::report.show')->name('admin.reports.show');
 });
-    
-
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -30,9 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-    Route::livewire('/pertanyaan', 'pages::post.index')->name('posts.index');
     Route::livewire('/pertanyaan/buat', 'pages::post.create')->name('posts.create');
-    Route::livewire('/pertanyaan/{id}', 'pages::post.show')->name('post.show');
     Route::livewire('/my-posts', 'pages::post.user-posts')->name('post.user-posts');
 });
 

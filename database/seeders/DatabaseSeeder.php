@@ -16,12 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
-                // Create admin user
+        // Create admin user
         $admin = User::firstOrCreate(
             ['email' => 'admin@gmail.com'],
             [
@@ -32,27 +27,5 @@ class DatabaseSeeder extends Seeder
             ]
         );
         $admin->assignRole('admin');
-
-        // Create sample user
-        $user = User::firstOrCreate(
-            ['email' => 'user@example.com'],
-            [
-                'name' => 'Regular User',
-                'password' => Hash::make('password'),
-            ]
-        );
-        $user->assignRole('user');
-
-        $ustaz = User::firstOrCreate(
-            ['email' => 'ustaz@gmail.com'],
-            [
-                'name' => 'ustaz',
-                'password' => Hash::make('ustaz1234'),
-                'is_verified' => true,
-                'verified_at' => now(),
-            ]
-        );
-
-        $ustaz->assignRole('ustaz');
     }
 }
