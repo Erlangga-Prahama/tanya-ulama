@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::livewire('/', 'pages::post.index')->name('posts.index');
-Route::livewire('/pertanyaan/{id}', 'pages::post.show')->name('post.show');
+Route::redirect('/', '/login');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
@@ -23,7 +22,9 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+    Route::livewire('/pertanyaan', 'pages::post.index')->name('posts.index');
     Route::livewire('/pertanyaan/buat', 'pages::post.create')->name('posts.create');
+    Route::livewire('/pertanyaan/{id}', 'pages::post.show')->name('post.show');
     Route::livewire('/my-posts', 'pages::post.user-posts')->name('post.user-posts');
 });
 
