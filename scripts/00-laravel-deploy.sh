@@ -16,3 +16,7 @@ php artisan db:seed --class=UstazSeeder --force
 echo "=== DEBUG: Checking registered routes ==="
 php artisan route:list | grep -i login || echo "NO LOGIN ROUTE FOUND"
 echo "=== END DEBUG ==="
+
+echo "=== DEBUG: Checking view files ==="
+ls -la /var/www/html/resources/views/livewire/auth/ || echo "FOLDER NOT FOUND"
+echo "=== END DEBUG 2 ==="
