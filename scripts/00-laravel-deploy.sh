@@ -20,3 +20,8 @@ echo "=== END DEBUG ==="
 echo "=== DEBUG: Checking view files ==="
 ls -la /var/www/html/resources/views/livewire/auth/ || echo "FOLDER NOT FOUND"
 echo "=== END DEBUG 2 ==="
+
+echo "=== DEBUG: Checking php-fpm socket ==="
+find / -name "*.sock" 2>/dev/null
+cat /etc/nginx/conf.d/*.conf 2>/dev/null | grep -i fastcgi_pass
+echo "=== END DEBUG 3 ==="
