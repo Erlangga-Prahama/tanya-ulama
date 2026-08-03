@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
+Route::get('/debug-check', function () {
+    return response()->json([
+        'livewire_auth_files' => glob(resource_path('views/livewire/auth/*')),
+        'livewire_folder_exists' => is_dir(resource_path('views/livewire')),
+        'pages_folder_exists' => is_dir(resource_path('views/pages')),
+    ]);
+});
+
 Route::redirect('/', '/login');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
