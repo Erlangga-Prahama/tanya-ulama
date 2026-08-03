@@ -1,10 +1,18 @@
+# Stage 1: install PHP dependencies (Flux UI menyimpan CSS-nya di vendor/,
+# jadi harus ada sebelum build asset frontend)
+FROM composer:2 AS vendor
+WORKDIR /app
+COPY . .
+RUN composer install --no-dev --no-scripts --ignore-platform-reqs --optimize-autoloader
+
+# Stage 2: build frontend assets (Tailwind, Alpine, Flux)
 FROM node:20-alpine AS assets
 WORKDIR /app
-COPY package*.json ./
+COPY --from=vendor /app /app
 RUN npm install
-COPY . .
 RUN npm run build
 
+# Stage 3: image final PHP + nginx
 FROM richarvey/nginx-php-fpm:3.1.6
 COPY --from=assets /app /var/www/html
 

@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-echo "Installing composer dependencies..."
-composer install --no-dev --working-dir=/var/www/html --optimize-autoloader
-
 echo "Caching config & routes..."
 php artisan config:cache
 php artisan route:cache
