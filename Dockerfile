@@ -1,4 +1,3 @@
-# Stage 1: build frontend assets (Tailwind, Alpine, dll)
 FROM node:20-alpine AS assets
 WORKDIR /app
 COPY package*.json ./
@@ -6,7 +5,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Stage 2: image PHP + nginx
 FROM richarvey/nginx-php-fpm:3.1.6
 COPY --from=assets /app /var/www/html
 
