@@ -24,22 +24,22 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($users as $data) {
-            $user = User::create([
-                'name'     => $data['name'],
-                'email'    => $data['email'],
-                'password' => Hash::make('password'),
-            ]);
+            $user = User::firstOrCreate(
+                ['email' => $data['email']],
+                ['name' => $data['name'], 'password' => Hash::make('password')],
+            );
 
-            $user->assignRole('user');
+            $user->syncRoles('user');
         }
 
-        // Admin
-        $admin = User::create([
-            'name'     => 'Admin',
-            'email'    => 'admin@example.com',
-            'password' => Hash::make('password'),
-        ]);
+        // Admin: hanya dibuat kalau ADMIN_EMAIL & ADMIN_PASSWORD diset
+        if (config('app.admin_email') && config('app.admin_password')) {
+            $admin = User::firstOrCreate(
+                ['email' => config('app.admin_email')],
+                ['name' => 'Admin', 'password' => Hash::make(config('app.admin_password'))],
+            );
 
-        $admin->assignRole('admin');
+            $admin->syncRoles('admin');
+        }
     }
 }

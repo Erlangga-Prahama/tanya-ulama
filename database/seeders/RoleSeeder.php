@@ -17,10 +17,9 @@ class RoleSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Buat roles
-        Role::create(['name' => 'user']);
-        Role::create(['name' => 'ustaz']);
-        Role::create(['name' => 'ustazah']);
-        Role::create(['name' => 'admin']);
+        foreach (['user', 'ustaz', 'ustazah', 'admin'] as $name) {
+            Role::findOrCreate($name, 'web');
+        }
         
         $this->command->info('Roles created successfully!');
     }

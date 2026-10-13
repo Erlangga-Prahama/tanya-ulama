@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Question;
+use App\Models\User;
 
 class QuestionSeeder extends Seeder
 {
@@ -37,12 +38,18 @@ class QuestionSeeder extends Seeder
             'Apa hukum tidur setelah shalat subuh?',
         ];
 
+        $asker = User::where('email', 'ahmad.rizki@example.com')->first();
+
+        if (! $asker) {
+            $this->command->warn('UserSeeder belum jalan, QuestionSeeder dilewati.');
+            return;
+        }
+
         foreach ($questions as $content) {
-            Question::create([
-                'user_id' => 1,
-                'content' => $content,
-                'is_answered' => false,
-            ]);
+            Question::firstOrCreate(
+                ['content' => $content],
+                ['user_id' => $asker->id, 'is_answered' => false],
+            );
         }
     }
 }

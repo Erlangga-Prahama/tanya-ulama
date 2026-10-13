@@ -17,7 +17,7 @@ class UstazSeeder extends Seeder
             ['name' => 'Hasan Basri', 'gender' => 'L'],
             ['name' => 'Umar Faruq', 'gender' => 'L'],
             ['name' => 'Ibrahim Khalil', 'gender' => 'L'],
-            ['name' => 'Yusuf Mansur', 'gender' => 'L'],
+            ['name' => 'Yusuf', 'gender' => 'L'],
             ['name' => 'Ismail Harun', 'gender' => 'L'],
             ['name' => 'Zainul Arifin', 'gender' => 'L'],
             ['name' => 'Abdul Ghani', 'gender' => 'L'],
@@ -42,7 +42,7 @@ class UstazSeeder extends Seeder
             $role = $data['gender'] === 'L' ? 'ustaz' : 'ustazah';
             $email = strtolower(str_replace(' ', '.', $data['name'])) . '@example.com';
 
-            $user = User::create([
+            $user = User::firstOrCreate([
                 'name'                  => $data['name'],
                 'email'                 => $email,
                 'gender'                => $data['gender'],
