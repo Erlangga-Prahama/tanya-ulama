@@ -45,11 +45,15 @@
     </flux:sidebar.nav>
     <flux:sidebar.spacer />
     <flux:sidebar.nav>
-        <flux:modal.trigger name="logout-modal">
-            <flux:sidebar.item as="button" icon="arrow-right-start-on-rectangle" class="w-full">
-                {{ __('Keluar') }}
-            </flux:sidebar.item>
-        </flux:modal.trigger>
+        @if (auth()->check())
+            <flux:modal.trigger name="logout-modal">
+                <flux:sidebar.item as="button" icon="arrow-right-start-on-rectangle" class="w-full">
+                    {{ __('Keluar') }}
+                </flux:sidebar.item>
+            </flux:modal.trigger>
+        @else
+            <flux:sidebar.item icon="information-circle" href="#">Masuk</flux:sidebar.item>
+        @endif
         <flux:sidebar.item icon="information-circle" href="#">Bantuan</flux:sidebar.item>
     </flux:sidebar.nav>
 </flux:sidebar>
