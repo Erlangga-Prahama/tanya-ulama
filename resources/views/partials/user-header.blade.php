@@ -7,7 +7,7 @@
             <flux:navbar.item icon:trailing="chat-bubble-bottom-center-text" class="text-white!">Pertanyaan</flux:navbar.item>
             <flux:navmenu>
                 <flux:navmenu.item href="{{ route('posts.index') }}">Daftar pertanyaan</flux:navmenu.item>
-                @if (!auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
+                @if (auth()->check() && !auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
                     <flux:navmenu.item href="{{ route('posts.create') }}">Buat pertanyaan</flux:navmenu.item>
                     <flux:navmenu.item href="{{ route('post.user-posts') }}">Pertanyaan anda</flux:navmenu.item>
                 @endif
@@ -34,7 +34,7 @@
     <flux:sidebar.nav>
         <flux:sidebar.group expandable icon="chat-bubble-bottom-center-text" heading="Pertanyaan" class="grid">
             <flux:sidebar.item href="{{ route('posts.index') }}">Daftar pertanyaan</flux:sidebar.item>
-            @if (!auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
+            @if (auth()->check() && !auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
                 <flux:sidebar.item href="{{ route('posts.create') }}">Buat pertayaan</flux:sidebar.item>
                 <flux:sidebar.item href="{{ route('post.user-posts') }}">Pertanyaan anda</flux:sidebar.item>
             @endif

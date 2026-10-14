@@ -1,6 +1,5 @@
 <div class="flex flex-col" style="height: calc(100vh - 56px);">
     
-    {{-- Konten yang bisa discroll --}}
     <div class="flex-1 overflow-y-auto mt-1 mb-2 mx-3">
         <flux:breadcrumbs class="mb-3 text-xs!">
             <flux:breadcrumbs.item href="{{route('posts.index')}}" class="text-xs!" icon:variant="outline" icon="chat-bubble-bottom-center-text"></flux:breadcrumbs.item>
@@ -8,7 +7,7 @@
         </flux:breadcrumbs>
 
         <div class="rounded border bg-white pt-6 pb-3 px-5 mb-2 shadow relative">
-            @if(auth()->user()->isExpert())   
+            @if(auth()->check() && auth()->user()->isExpert())   
                 <flux:modal.trigger name="report-question">
                     <flux:button icon="exclamation-triangle" :disabled="$alreadyReportedQuestion" tooltip="Laporkan pertanyaan" variant='ghost' icon:variant="outline" size="sm" square='true' class="absolute! right-0 top-0"></flux:button>
                 </flux:modal.trigger>
@@ -19,7 +18,7 @@
 
         @if (!$question->canBeAnswered())            
             <div class="rounded border bg-white pt-6 pb-3 px-5 mb-2 shadow relative">
-                @if(auth()->user()->isExpert())
+                @if(auth()->check() && auth()->user()->isExpert())
                     <flux:modal.trigger name="report-answer">
                         <flux:button icon="exclamation-triangle" :disabled="$alreadyReportedAnswer" tooltip="Laporkan jawaban" variant='ghost' icon:variant="outline" size="sm" square='true' class="absolute! right-0 top-0"></flux:button>
                     </flux:modal.trigger>
@@ -67,7 +66,6 @@
         </flux:modal>
     </div>
 
-    {{-- Form jawaban tetap menempel di bawah --}}
     @if ($question->canBeAnswered() && auth()->user()->isExpert())        
         <div class="mx-3 mb-2 flex-shrink-0">
             <form wire:submit="answer">

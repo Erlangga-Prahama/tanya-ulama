@@ -19,7 +19,7 @@
         @endif
     </div>
 
-    @if(auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && !auth()->user()->is_verified)
+    @if(auth()->check() && auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && !auth()->user()->is_verified)
         <div class="mb-4 flex gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
             <div class="flex-shrink-0 mt-0.5">
                 <div class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center">
@@ -35,7 +35,7 @@
         </div>
     @endif
 
-    @if(auth()->user()->is_verified && auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && auth()->user()->verified_at?->gt(now()->subHours(20)))
+    @if(auth()->check() && auth()->user()->is_verified && auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && auth()->user()->verified_at?->gt(now()->subHours(20)))
         <div
             x-data="{ show: true }"
             x-show="show"
@@ -75,7 +75,7 @@
         </h2>
         <p class="text-xs md:text-sm text-white/70 mb-4">Tanyakan apa saja, kami siap membantu.</p>
 
-        @if(!auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
+        @if(!auth()->check() || !auth()->user()->hasAnyRole(['ustaz', 'ustazah']))
             
             <a href="{{ route('posts.create') }}"
                 class="self-start flex items-center gap-2 px-4 py-2 border border-white/50 hover:border-white text-white text-xs md:text-sm font-medium rounded-xl backdrop-blur-sm hover:bg-white/10 transition"
@@ -89,7 +89,7 @@
     </div>
 </div>
 
-    @if(auth()->user()->isExpert())
+    @if(auth()->check() && auth()->user()->isExpert())
         <div class="mb-6">
             <div class="flex items-center gap-2 mb-3">
                 <div class="w-1 h-4 bg-slate-300 rounded-full"></div>
