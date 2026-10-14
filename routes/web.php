@@ -11,7 +11,7 @@ Route::get('/debug-check', function () {
     ]);
 });
 
-Route::redirect('/', '/login');
+Route::redirect('/', '/pertanyaan');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
