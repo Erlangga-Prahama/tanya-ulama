@@ -21,6 +21,7 @@ new class extends Component
                                 ->limit(5)
                                 ->get(),
             'pendingUstaz'   => User::where('is_verified', false)
+                                ->whereNull('rejected_at')
                                 ->whereHas('roles', fn($q) => $q->whereIn('name', ['ustaz', 'ustazah']))
                                 ->with('roles')
                                 ->limit(5)
