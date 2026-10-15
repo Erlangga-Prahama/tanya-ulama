@@ -27,7 +27,8 @@ class User extends Authenticatable // implements MustVerifyEmail
         'profession',           
         'is_verified',          
         'verified_at',          
-        'verification_document', 
+        'verification_document',
+        'rejected_at',
     ];
 
     /**
@@ -63,6 +64,7 @@ class User extends Authenticatable // implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'verified_at' => 'datetime',
+            'rejected_at' => 'datetime',
         ];
     }
 
