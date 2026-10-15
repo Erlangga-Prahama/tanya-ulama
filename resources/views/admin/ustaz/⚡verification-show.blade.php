@@ -34,7 +34,10 @@ new class extends Component
 
     public function reject()
     {
-        $this->ustaz->update(['is_verified' => false]);
+        $this->ustaz->update([
+            'is_verified' => false,
+            'rejected_at' => now(),
+            ]);
         $this->redirect(route('dashboard'));
     }
 
