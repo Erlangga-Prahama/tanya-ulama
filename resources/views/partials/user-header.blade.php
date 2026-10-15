@@ -1,6 +1,6 @@
 <flux:header sticky container class="bg-green-800 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700 z-50">
     <flux:sidebar.toggle class="lg:hidden text-white!" icon="bars-2" inset="left" />
-    <a href="/" class="max-lg:hidden text-lg font-bold text-white">Tanya Ulama.</a>
+    <a href="/" class="max-lg:hidden text-lg font-bold text-white text-md">Tanya Ulama.</a>
     <flux:brand href="/" name="Tanya Ulama." color="white" class="max-lg:hidden !hidden dark:flex font-bold" />
     <flux:navbar class="-mb-px max-lg:hidden text-white!">    
         <flux:dropdown>
@@ -15,6 +15,30 @@
         </flux:dropdown>
     </flux:navbar>
     <flux:spacer />
+    <div class="max-md:hidden flex items-center">
+        @if (auth()->check())
+            <flux:modal.trigger name="logout-modal">
+                <flux:button
+                    variant="ghost"
+                    size="sm"
+                    icon="arrow-right-start-on-rectangle"
+                    class="text-white! hover:bg-white/10!"
+                >
+                    Keluar
+                </flux:button>
+            </flux:modal.trigger>
+        @else
+            <flux:button
+                href="{{ route('login') }}"
+                variant="ghost"
+                size="sm"
+                icon="arrow-left-end-on-rectangle"
+                class="text-white! hover:bg-white/10!"
+            >
+                Masuk
+            </flux:button>
+        @endif
+    </div>
     <flux:navbar class="flex justify-center lg:hidden">
             <flux:navbar.item href="#" class="text-green-800!">Tanya Ulama.</flux:navbar.item>
     </flux:navbar>
@@ -52,7 +76,7 @@
                 </flux:sidebar.item>
             </flux:modal.trigger>
         @else
-            <flux:sidebar.item icon="information-circle" href="#">Masuk</flux:sidebar.item>
+            <flux:sidebar.item icon="information-circle" href="{{ route('login') }}">Masuk</flux:sidebar.item>
         @endif
         <flux:sidebar.item icon="information-circle" href="#">Bantuan</flux:sidebar.item>
     </flux:sidebar.nav>
