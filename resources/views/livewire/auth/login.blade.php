@@ -40,7 +40,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         Session::regenerate();
 
         $user = Auth::user();
-        
+
         if ($user->hasRole('admin')) {
             $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
         } else {
@@ -78,45 +78,117 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header title="Masuk ke akun anda" description="Masukan email dan kata sandi anda untuk masuk" />
+<div class="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl shadow-green-950/10 dark:border-zinc-800 dark:bg-zinc-900 dark:shadow-black/40">
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+    {{-- Header hijau dengan pola bintang islami --}}
+    <div class="relative overflow-hidden bg-linear-to-br from-green-800 to-green-900 px-6 pb-8 pt-8 text-center">
+        <svg class="absolute inset-0 h-full w-full text-white/10" aria-hidden="true">
+            <defs>
+                <pattern id="login-star-pattern" width="48" height="48" patternUnits="userSpaceOnUse">
+                    <g fill="none" stroke="currentColor" stroke-width="1">
+                        <rect x="10" y="10" width="28" height="28" />
+                        <rect x="10" y="10" width="28" height="28" transform="rotate(45 24 24)" />
+                    </g>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#login-star-pattern)" />
+        </svg>
 
-    <form wire:submit="login" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <flux:input wire:model="email" label="{{ __('Email') }}" type="email" name="email" required autofocus autocomplete="email" placeholder="email@contoh.com" />
-
-        <!-- Password -->
         <div class="relative">
+            {{-- Emblem bulan sabit & bintang --}}
+            <div class="relative mx-auto flex size-14 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/25">
+                <svg class="size-7 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+                <svg class="absolute -right-1 -top-1 size-4 text-amber-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z" />
+                </svg>
+            </div>
+
+            <p class="mt-4 font-alhambra text-3xl tracking-wide text-white">Tanya Ulama.</p>
+            <p class="mt-1 text-lg text-green-100/90" dir="rtl" lang="ar">السلام عليكم</p>
+        </div>
+    </div>
+
+    {{-- Form --}}
+    <div class="flex flex-col gap-5 px-6 py-7">
+        <div class="text-center">
+            <h1 class="text-lg font-semibold text-zinc-800 dark:text-zinc-100">Masuk ke akun anda</h1>
+            <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Masukkan email dan kata sandi anda untuk masuk</p>
+        </div>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="text-center" :status="session('status')" />
+
+        <form wire:submit="login" class="flex flex-col gap-5">
+            <!-- Email Address -->
             <flux:input
-                wire:model="password"
-                label="{{ __('Kata sandi') }}"
-                type="password"
-                name="password"
+                wire:model="email"
+                label="{{ __('Email') }}"
+                type="email"
+                name="email"
                 required
-                autocomplete="current-password"
-                placeholder="Kata sandi"
+                autofocus
+                autocomplete="email"
+                placeholder="email@contoh.com"
+                icon="envelope"
             />
 
-            @if (Route::has('password.request'))
-                <x-text-link class="absolute right-0 top-0" href="{{ route('password.request') }}">
-                    {{ __('lupa kata sandi?') }}
-                </x-text-link>
-            @endif
-        </div>
+            <!-- Password -->
+            <div class="relative">
+                <flux:input
+                    wire:model="password"
+                    label="{{ __('Kata sandi') }}"
+                    type="password"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                    placeholder="Kata sandi"
+                    icon="lock-closed"
+                    viewable
+                />
 
-        <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" label="{{ __('ingat saya') }}" />
+                @if (Route::has('password.request'))
+                    <a
+                        href="{{ route('password.request') }}"
+                        wire:navigate
+                        class="absolute right-0 top-0 text-xs font-medium text-green-700 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300"
+                    >
+                        {{ __('Lupa kata sandi?') }}
+                    </a>
+                @endif
+            </div>
 
-        <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Masuk') }}</flux:button>
-        </div>
-    </form>
+            <!-- Remember Me -->
+            <flux:checkbox wire:model="remember" label="{{ __('Ingat saya') }}" />
 
-    <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
+            <button
+                type="submit"
+                wire:loading.attr="disabled"
+                wire:target="login"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-green-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-white disabled:cursor-not-allowed disabled:opacity-70 dark:focus:ring-offset-zinc-900"
+            >
+                <span wire:loading.remove wire:target="login">{{ __('Masuk') }}</span>
+                <span wire:loading wire:target="login" class="inline-flex items-center gap-2">
+                    <svg class="size-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                    </svg>
+                    Memproses...
+                </span>
+            </button>
+        </form>
+    </div>
+
+    {{-- Footer daftar --}}
+    <div class="border-t border-zinc-200 bg-zinc-50 px-6 py-4 text-center text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950/40 dark:text-zinc-400">
         Belum punya akun?
-        <x-text-link href="{{ route('register') }}">Daftar</x-text-link>
+        <a
+            href="{{ route('register') }}"
+            wire:navigate
+            class="font-semibold text-green-700 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300"
+        >
+            Daftar
+        </a>
     </div>
 </div>
