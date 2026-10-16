@@ -19,7 +19,7 @@
         @endif
     </div>
 
-    @if(auth()->check() && auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && !auth()->user()->is_verified)
+    @if(auth()->check() && auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && !auth()->user()->is_verified && auth()->user()->rejected_at == null)
         <div class="mb-4 flex gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
             <div class="flex-shrink-0 mt-0.5">
                 <div class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center">
@@ -56,6 +56,37 @@
                 <p class="text-xs text-green-600 mt-0.5">Anda kini dapat menjawab pertanyaan dari pengguna.</p>
             </div>
             <button @click="show = false" class="text-green-300 hover:text-green-500 transition">
+                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    @endif
+
+    @if(auth()->check() && auth()->user()->hasAnyRole(['ustaz', 'ustazah']) && auth()->user()->rejected_at)
+        <div
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="mb-4 flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4 relative"
+        >
+            <div class="flex-shrink-0 mt-0.5">
+                <div class="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center">
+                    <svg class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-red-800">Verifikasi Akun Ditolak</p>
+                <p class="text-xs text-red-600 mt-0.5">
+                    Dokumen verifikasi Anda belum dapat kami terima, sehingga akun Anda belum dapat menjawab pertanyaan.
+                </p>
+                
+            </div>
+            <button @click="show = false" class="text-red-300 hover:text-red-500 transition">
                 <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
