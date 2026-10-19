@@ -178,6 +178,65 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 </span>
             </button>
         </form>
+
+        {{-- Akun demo untuk pengunjung --}}
+        @php
+            $demoAccounts = [
+                [
+                    'role' => 'Admin',
+                    'desc' => 'Kelola pengguna, verifikasi ustaz, dan laporan',
+                    'email' => 'admin@gmail.com',
+                    'password' => 'admin1234',
+                    'badge' => 'bg-rose-100 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300',
+                ],
+                [
+                    'role' => 'User',
+                    'desc' => 'Mengajukan pertanyaan dan melihat jawaban',
+                    'email' => 'ahmad.rizki@example.com',
+                    'password' => 'password',
+                    'badge' => 'bg-sky-100 text-sky-700 dark:bg-sky-950/50 dark:text-sky-300',
+                ],
+                [
+                    'role' => 'Ustaz',
+                    'desc' => 'Menjawab pertanyaan dari pengguna',
+                    'email' => 'yusuf@example.com',
+                    'password' => 'password',
+                    'badge' => 'bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-300',
+                ],
+            ];
+        @endphp
+
+        <div class="flex items-center gap-3">
+            <div class="h-px flex-1 bg-zinc-200 dark:bg-zinc-800"></div>
+            <span class="text-xs uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Coba akun demo</span>
+            <div class="h-px flex-1 bg-zinc-200 dark:bg-zinc-800"></div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            @foreach ($demoAccounts as $account)
+                <div class="flex items-center gap-3 rounded-xl border border-zinc-200 p-3 dark:border-zinc-800">
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <span class="shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold {{ $account['badge'] }}">{{ $account['role'] }}</span>
+                            <span class="truncate text-xs text-zinc-500 dark:text-zinc-400">{{ $account['desc'] }}</span>
+                        </div>
+                        <p class="mt-1.5 truncate font-mono text-xs text-zinc-700 dark:text-zinc-300">{{ $account['email'] }}</p>
+                        <p class="font-mono text-xs text-zinc-500 dark:text-zinc-400">{{ $account['password'] }}</p>
+                    </div>
+                    <button
+                        type="button"
+                        x-on:click="$wire.email = @js($account['email']); $wire.password = @js($account['password'])"
+                        class="shrink-0 rounded-lg border border-green-600 px-3 py-1.5 text-xs font-semibold text-green-700 transition hover:bg-green-50 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-950/40"
+                    >
+                        Isi otomatis
+                    </button>
+                </div>
+            @endforeach
+
+            <p class="text-center text-xs text-zinc-400 dark:text-zinc-500">
+                Klik "Isi otomatis", lalu tekan Masuk. Akun demo bersifat publik, mohon tidak mengubah kata sandinya.
+            </p>
+        </div>
     </div>
 
     {{-- Footer daftar --}}
