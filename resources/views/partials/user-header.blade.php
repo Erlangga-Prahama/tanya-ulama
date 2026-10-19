@@ -78,7 +78,7 @@
         @else
             <flux:sidebar.item icon="information-circle" href="{{ route('login') }}">Masuk</flux:sidebar.item>
         @endif
-        <flux:sidebar.item icon="information-circle" href="#">Bantuan</flux:sidebar.item>
+        {{-- <flux:sidebar.item icon="information-circle" href="#">Bantuan</flux:sidebar.item> --}}
     </flux:sidebar.nav>
 </flux:sidebar>
 
