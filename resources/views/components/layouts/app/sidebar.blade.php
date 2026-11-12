@@ -56,25 +56,21 @@
                     class="{{ $navItem }}"
                 >Pengguna</flux:navlist.item>
 
-                <flux:sidebar.group
-                    expandable
-                    expanded="false"
-                    class="grid [&_.flux-sidebar-group-heading]:text-emerald-50/85!"
-                    heading="Ustaz/Ustazah"
-                >
-                    <flux:sidebar.item
-                        class="{{ $navItem }}"
-                        :href="route('admin.ustaz-index')"
-                        :current="request()->routeIs('admin.ustaz-index')"
-                        wire:navigate
-                    >Daftar Ustaz dan Ustazah</flux:sidebar.item>
-                    <flux:sidebar.item
-                        class="{{ $navItem }}"
-                        :href="route('admin.ustaz-verification')"
-                        :current="request()->routeIs('admin.ustaz-verification')"
-                        wire:navigate
-                    >Verifikasi</flux:sidebar.item>
-                </flux:sidebar.group>
+                <flux:navlist.item
+                    icon="academic-cap"
+                    :href="route('admin.ustaz-index')"
+                    :current="request()->routeIs('admin.ustaz-index')"
+                    wire:navigate
+                    class="{{ $navItem }}"
+                >Daftar Ustaz dan Ustazah</flux:navlist.item>
+                
+                <flux:navlist.item
+                    icon="clipboard-document-check"
+                    :href="route('admin.ustaz-verification')"
+                    :current="request()->routeIs('admin.ustaz-verification')"
+                    wire:navigate
+                    class="{{ $navItem }}"
+                >Verifikasi</flux:navlist.item>
 
                 <flux:navlist.item
                     icon="flag"
