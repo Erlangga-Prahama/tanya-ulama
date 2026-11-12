@@ -1,6 +1,6 @@
 @php
     // Satu tempat untuk gaya item menu. Hapus "font-rubaith" di sini jika tidak ingin dipakai di semua item.
-    $navItem = 'font-rubaith rounded-lg! text-emerald-50/85! transition-colors hover:bg-white/10! hover:text-white! '
+    $navItem = 'rounded-lg! text-emerald-50/85! transition-colors hover:bg-white/10! hover:text-white! '
         . '[&[aria-current]]:bg-white/15! [&[aria-current]]:text-white! '
         . '[&[data-current]]:bg-white/15! [&[data-current]]:text-white! '
         . '[&[data-current]]:shadow-[inset_3px_0_0_var(--color-amber-300)]';
@@ -32,7 +32,7 @@
             {{-- Brand --}}
             <a href="{{ route('dashboard') }}" class="mr-5 flex flex-col gap-1.5" wire:navigate>
                 <x-app-logo class="size-8" href="#"></x-app-logo>
-                <span class="font-rubaith text-[10px] font-medium uppercase tracking-[0.3em] text-amber-300/80">Panel Admin</span>
+                <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-amber-300/80">Panel Admin</span>
             </a>
 
             <div class="h-px bg-linear-to-r from-transparent via-amber-300/40 to-transparent"></div>
